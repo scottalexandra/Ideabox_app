@@ -13,7 +13,8 @@
   </br>
    Description: <%= idea.description %>
    <%= link_to "Edit", edit_idea_path(idea) %>
+   <%= button_to "Delete", idea_path(idea), :method => :delete %>
   </ul>
-  <%= button_to "Add New Idea", new_idea_path(idea) %>
   <% end %>
+  <%= button_to "Add New Idea", new_idea_path, :method => :get %>
 </div>

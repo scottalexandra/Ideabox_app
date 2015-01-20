@@ -75,9 +75,21 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     fill_in "idea[description]", with: "description of an idea"
     click_link_or_button "Submit"
     assert_equal user_path(user), current_path
-    within ("idea_list") do
-      assert has_content?("an idea")
-      assert has_content?("description of an idea")
+    within ("#flash_notice") do
+      assert has_content?("New Idea Successfully Added")
+    end
+  end
+
+  test "a registered user can delete an idea" do
+    user = User.create(username: "alex", password: "password")
+    user.ideas.create(title: "title", description: "description")
+    ApplicationController.any_instance.stubs(:current_user).returns(user)
+    visit user_path(user)
+    click_link_or_button "Delete"
+    assert_equal user_path(user), current_path
+    within("#idea_list") do
+      refute has_content?("title")
+      refute has_content?("description")
     end
   end
 
