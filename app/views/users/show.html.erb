@@ -1,0 +1,19 @@
+<div id="welcome">
+  <h1>Welcome <%= @user.username.capitalize %></h1>
+</div>
+
+<div id="idea_title">
+  <h2>Ideas</h2>
+</div>
+
+<div id="idea_list">
+  <% @user.ideas.each do |idea| %>
+  <ul>
+    Title: <%= idea.title %>
+  </br>
+   Description: <%= idea.description %>
+   <%= link_to "Edit", edit_idea_path(idea) %>
+  </ul>
+  <%= button_to "Add New Idea", new_idea_path(idea) %>
+  <% end %>
+</div>
